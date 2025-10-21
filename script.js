@@ -77,7 +77,8 @@ if (contactForm) {
     formStatus.style.color = '#ccc';
 
     // Send to backend
-    fetch('https://adaran-backend.onrender.com/contact', {
+    fetch('https://adarannig-backend.onrender.com/contact', {
+
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, email, message }),
