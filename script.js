@@ -45,9 +45,9 @@ if (contactForm) {
     e.preventDefault();
     // Basic client-side validation
     const formData = new FormData(contactForm);
-    const name = formData.get('name')?.toString().trim();
-    const email = formData.get('email')?.toString().trim();
-    const message = formData.get('message')?.toString().trim();
+    const name = (formData.get('name') || '').trim();
+const email = (formData.get('email') || '').trim();
+const message = (formData.get('message') || '').trim();
 
     if (!name || !email || !message) {
       formStatus.textContent = 'Please fill out all fields.';
