@@ -54,14 +54,34 @@ if (contactForm) {
       formStatus.style.color = '#e6b3a1';
       return;
     }
+// Send form data to your backend (Render)
+formStatus.textContent = 'Sending...';
+formStatus.style.color = '#ccc';
 
-    // Demo success (swap this with real POST)
-    formStatus.textContent = 'Thanks — your message has been recorded (demo).';
-    formStatus.style.color = '#bff3d4';
-    contactForm.reset();
+fetch('https://adaran-backend.onrender.com/contact', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ name, email, message }),
+})
+  .then(res => res.json())
+  .then(data => {
+    if (data.success) {
+      formStatus.textContent = '✅ Message sent successfully!';
+      formStatus.style.color = '#bff3d4';
+      contactForm.reset();
+    } else {
+      formStatus.textContent = '❌ Failed to send message. Please try again.';
+      formStatus.style.color = '#e6b3a1';
+    }
+  })
+  .catch(err => {
+    console.error('Error sending message:', err);
+    formStatus.textContent = '⚠️ Server error. Try again later.';
+    formStatus.style.color = '#e6b3a1';
   });
 
-  fetch('http://localhost:5000/api/test')
+
+  
   .then(res => res.json())
   .then(data => {
     console.log('Response from backend:', data);
